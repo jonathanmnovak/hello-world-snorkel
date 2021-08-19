@@ -49,7 +49,7 @@ which uses the
 [YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
 to label whether a comment is `SPAM` or not (aka `HAM`).
 
-**NOTE**: I copied the `utils.py` file from 
+**NOTE**: I copied the `utils.py` and `download_data.sh` files from 
 [snorkel-tutorials](https://github.com/snorkel-team/snorkel-tutorials/tree/master/spam)
 repo.
 
