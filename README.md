@@ -1,6 +1,24 @@
 # hello-world-snorkel
 Repository used to explore the [Snorkel](https://www.snorkel.org/) Python 
-package.
+package which helps improve training data for build models.
+
+From the documentation:  
+
+    Snorkel is a system for programmatically building and managing training 
+    datasets without manual labeling. In Snorkel, users can develop large training 
+    datasets in hours or days rather than hand-labeling them over weeks or months.
+    
+    Snorkel currently exposes three key programmatic operations:
+    
+    Labeling data, e.g., using heuristic rules or distant supervision techniques
+    
+    Transforming data, e.g., rotating or stretching images to perform data augmentation
+    
+    Slicing data into different critical subsets for monitoring or targeted improvement
+    
+    Snorkel then automatically models, cleans, and integrates the resulting training 
+    data using novel, theoretically-grounded techniques.
+
 
 # Setup
 
