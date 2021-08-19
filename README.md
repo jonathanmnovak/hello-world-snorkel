@@ -75,7 +75,15 @@ Note that LFs can create conflicting labels.
 The labeling functions for this tutorial can be found in the 
 `SpamLabelingFunctions.py`
 
-
+### LFs' Performance
+Several metrics are calculated to help evaluate the performance of LFs: 
+* **Polarity**: Set of unique labels excluding abstains (-1) values for each LF
+* **Coverage**: For each LF, the fraction of the data set with each label
+* **Overlaps**: Fraction of the data set where an LF and at least one other have the same labels
+* **Conflicts**: Fraction of the data set where an LF and at least one other have labels that disagree
+* **Correct**: Given the ground truth, the number of correctly labeled data points per LF
+* **Incorrect**: Given the ground truth, the number of incorrectly labeled data points per LF
+* **Empirical Accuracy**: Given the ground truth, the overall accuracy of the LF
 
 # General Thoughts
 
