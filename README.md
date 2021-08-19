@@ -73,7 +73,7 @@ is as follows:
 Note that LFs can create conflicting labels.
 
 The labeling functions for this tutorial can be found in the 
-`spam_labeling_functions.py`
+`SpamLabelingFunctions.py`
 
 
 

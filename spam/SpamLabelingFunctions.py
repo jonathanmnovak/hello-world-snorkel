@@ -16,8 +16,8 @@ def check(x:str)->int:
 
     return SPAM if 'check' in x.text.lower() else ABSTAIN
 
-@labeling_function
-def check_out(x):
+@labeling_function()
+def check_out(x:str)->int:
     """
     Labeling function which classifies a piece of text as spam if it contains
     the phrase "check out" in it.
