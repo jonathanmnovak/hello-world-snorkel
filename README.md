@@ -41,7 +41,7 @@ following:
 
 # Tutorials
 
-### Data Labeling
+## Data Labeling
 
 I will be following the 
 [Snorkel Intro Tutorial: Data Labeling](https://www.snorkel.org/use-cases/01-spam-tutorial) 
@@ -53,8 +53,27 @@ to label whether a comment is `SPAM` or not (aka `HAM`).
 [snorkel-tutorials](https://github.com/snorkel-team/snorkel-tutorials/tree/master/spam)
 repo.
 
-Data labeling code for the tutorial is in the 
+The main data labeling code for this tutorial is in the 
 `./tutorial/tutorial-data-labeling.ipynb` jupyter notebook.
+
+### Labeling Functions (LFs)
+
+LFs are heuristics used to label data. There are several approaches to 
+create these functions such as keyword search, pattern matching, third-party models, 
+domain knowledge, and crowd sourcing the labels.
+
+The recommended approach for developing LFs from the documentation 
+is as follows:
+1. Evaluate data to identify approaches for labeling the data
+2. Write LFs based on (1)
+3. Evaluate the performance of (2) from the training data
+4. Update/improve LFs based on (3)
+5. Repeat steps (3) and (4) until an ideal accuracy or coverage is reached
+
+Note that LFs can create conflicting labels.
+
+The labeling functions for this tutorial can be found in the 
+`spam_labeling_functions.py`
 
 
 
