@@ -39,13 +39,24 @@ If a requirements file is provided, then you can install by running the
 following:  
 `pip install -r requirements.txt`
 
-# Tutorial
+# Tutorials
+
+### Data Labeling
 
 I will be following the 
-[Snorkel Intro Tutorial](https://www.snorkel.org/use-cases/01-spam-tutorial) 
+[Snorkel Intro Tutorial: Data Labeling](https://www.snorkel.org/use-cases/01-spam-tutorial) 
 which uses the 
 [YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
-to label whether a comment is `SPAM` or not.
+to label whether a comment is `SPAM` or not (aka `HAM`).
+
+**NOTE**: I copied the `utils.py` file from 
+[snorkel-tutorials](https://github.com/snorkel-team/snorkel-tutorials/tree/master/spam)
+repo.
+
+Data labeling code for the tutorial is in the 
+`./tutorial/tutorial-data-labeling.ipynb` jupyter notebook.
+
+
 
 # General Thoughts
 
