@@ -39,6 +39,8 @@ If a requirements file is provided, then you can install by running the
 following:  
 `pip install -r requirements.txt`
 
+TODO: export final requiremnts.txt when tutorial is completed
+
 # Tutorials
 
 ## Data Labeling
@@ -84,6 +86,12 @@ Several metrics are calculated to help evaluate the performance of LFs:
 * **Correct**: Given the ground truth, the number of correctly labeled data points per LF
 * **Incorrect**: Given the ground truth, the number of incorrectly labeled data points per LF
 * **Empirical Accuracy**: Given the ground truth, the overall accuracy of the LF
+
+### Preprocessors
+Preprocess data which is then used by LFs to improve the labeling accuracy.
+
+The preprocessing functions for this tutorial can be found in the 
+`SpamPreprocessors.py` which uses a third-party package to apply sentiment analysis.
 
 # General Thoughts
 
