@@ -102,3 +102,13 @@ keyword_please = make_keyword_lf(keywords=["please", "plz"])
 
 """Ham comments actually talk about the video's content."""
 keyword_song = make_keyword_lf(keywords=["song"], label=HAM)
+
+@labeling_function()
+def short_comment(x:str, thresh:int=5)->int:
+    """
+    Short comments are often not SPAM (aka HAM).
+    :param x: Text to evaluate
+    :param thresh:Threshold where any text length below the threshold is HAM
+    :return: 1 if text is less than threshold, otherwise return -1
+    """
+    return HAM if len(x.text.split())<=thresh else ABSTAIN

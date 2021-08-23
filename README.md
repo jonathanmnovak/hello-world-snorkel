@@ -77,6 +77,20 @@ Note that LFs can create conflicting labels.
 The labeling functions for this tutorial can be found in the 
 `SpamLabelingFunctions.py`
 
+### Keyword LFs
+LFs could be as simple as keyword lookups. Instead of having to generate a new
+labeling function each time a different keyword is used, Snorkel allows you to
+create a template function and use the `LabelingFunction` class to generate 
+multiple LFs from the template function. 
+
+See lines 63-104 in the `SpamLabelingFunctions.py` for examples.
+
+### Preprocessors
+Preprocess data which is then used by LFs to improve the labeling accuracy.
+
+The preprocessing functions for this tutorial can be found in the 
+`SpamPreprocessors.py` which uses a third-party package to apply sentiment analysis.
+
 ### LFs' Performance
 Several metrics are calculated to help evaluate the performance of LFs: 
 * **Polarity**: Set of unique labels excluding abstains (-1) values for each LF
@@ -86,20 +100,6 @@ Several metrics are calculated to help evaluate the performance of LFs:
 * **Correct**: Given the ground truth, the number of correctly labeled data points per LF
 * **Incorrect**: Given the ground truth, the number of incorrectly labeled data points per LF
 * **Empirical Accuracy**: Given the ground truth, the overall accuracy of the LF
-
-### Preprocessors
-Preprocess data which is then used by LFs to improve the labeling accuracy.
-
-The preprocessing functions for this tutorial can be found in the 
-`SpamPreprocessors.py` which uses a third-party package to apply sentiment analysis.
-
-### Keyword LFs
-LFs could be as simple as keyword lookups. Instead of having to generate a new
-labeling function each time a different keyword is used, Snorkel allows you to
-create a template function and use the `LabelingFunction` class to generate 
-multiple LFs from the template function. 
-
-See lines 63-104 in the `SpamLabelingFunctions.py` for examples.
 
 # General Thoughts
 
