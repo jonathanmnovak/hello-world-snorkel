@@ -1,4 +1,5 @@
 from snorkel.labeling import labeling_function, LabelingFunction
+from snorkel.labeling.lf.nlp import nlp_labeling_function
 from SpamPreprocessors import *
 import re
 
@@ -112,3 +113,18 @@ def short_comment(x:str, thresh:int=5)->int:
     :return: 1 if text is less than threshold, otherwise return -1
     """
     return HAM if len(x.text.split())<=thresh else ABSTAIN
+
+@nlp_labeling_function()
+def has_person(x:str, thresh:int=20)->int:
+    """
+    Function to identify if the comment is short and includes a person which
+    implies it is a HAM comment
+    :param x: Text to evaluate
+    :param thresh: Threshold to define a short comment
+    :return: 1 if the comment length is less than the threshold and contains
+    a person, else return -1
+    """
+
+    if len(x.doc) < thresh and any([ent.label_ == 'PERSON' for ent in x.doc.ents]):
+        return HAM
+    return ABSTAIN

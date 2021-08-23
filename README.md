@@ -91,6 +91,11 @@ Preprocess data which is then used by LFs to improve the labeling accuracy.
 The preprocessing functions for this tutorial can be found in the 
 `SpamPreprocessors.py` which uses a third-party package to apply sentiment analysis.
 
+You can also build complex preprocessors using spaCy (i.e. labels based on POS).
+Snorkel makes this easy by providing a prebuilt LF decorator 
+(`nlp_labeling_function()`). See the `has_person` LF in the 
+`SpamLabelingFunctions.py` for an example.
+
 ### LFs' Performance
 Several metrics are calculated to help evaluate the performance of LFs: 
 * **Polarity**: Set of unique labels excluding abstains (-1) values for each LF
