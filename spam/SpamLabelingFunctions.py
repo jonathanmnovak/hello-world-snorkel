@@ -1,4 +1,4 @@
-from snorkel.labeling import labeling_function
+from snorkel.labeling import labeling_function, LabelingFunction
 from SpamPreprocessors import *
 import re
 
@@ -59,3 +59,46 @@ def textblob_subjectivity(x:str, subj_thresh:float=0.5) -> int:
     """
 
     return HAM if x.subjectivity >= subj_thresh else ABSTAIN
+
+# Keyword LFs
+def keyword_lookup(x:str, keywords:list, label:str) -> int:
+    """
+    Keyword template function that will return a label or ABSTAIN if the keyword
+    is found in the text
+    :param x: Text to evaluate
+    :param keywords: Keywords that may or may not be present in the text
+    :param label: Label given if a keyword is found in the text
+    :return: Label or ABSTAIN if the keyword is not found
+    """
+    if any(word in x.text.lower() for word in keywords):
+        return label
+    return ABSTAIN
+
+def make_keyword_lf(keywords:list, label:int=SPAM) -> LabelingFunction:
+    """
+    Function to create labeling functions based on different keywords
+    :param keywords: List of keywords to evaluate
+    :param label: Label used if the keyword is present
+    :return: If a keyword is present, then return this label
+    """
+
+    return LabelingFunction(
+        name=f'keyword_{keywords[0]}',
+        f=keyword_lookup,
+        resources=dict(keywords=keywords, label=label)
+    )
+
+"""Spam comments talk about 'my channel', 'my video', etc."""
+keyword_my = make_keyword_lf(keywords=["my"])
+
+"""Spam comments ask users to subscribe to their channels."""
+keyword_subscribe = make_keyword_lf(keywords=["subscribe"])
+
+"""Spam comments post links to other channels."""
+keyword_link = make_keyword_lf(keywords=["http"])
+
+"""Spam comments make requests rather than commenting."""
+keyword_please = make_keyword_lf(keywords=["please", "plz"])
+
+"""Ham comments actually talk about the video's content."""
+keyword_song = make_keyword_lf(keywords=["song"], label=HAM)

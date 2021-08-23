@@ -93,6 +93,14 @@ Preprocess data which is then used by LFs to improve the labeling accuracy.
 The preprocessing functions for this tutorial can be found in the 
 `SpamPreprocessors.py` which uses a third-party package to apply sentiment analysis.
 
+### Keyword LFs
+LFs could be as simple as keyword lookups. Instead of having to generate a new
+labeling function each time a different keyword is used, Snorkel allows you to
+create a template function and use the `LabelingFunction` class to generate 
+multiple LFs from the template function. 
+
+See lines 63-104 in the `SpamLabelingFunctions.py` for examples.
+
 # General Thoughts
 
 #### Pros:  
