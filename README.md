@@ -139,6 +139,8 @@ be 0.6 (0.8 - 0.2).
 See the `tutorial-data-labeling.ipynb` and the *Training a Classifier* section
 to see the implementation.
 
+## Data Augmentation
+
 # General Thoughts
 
 #### Pros:  
