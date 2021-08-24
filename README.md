@@ -106,6 +106,22 @@ Several metrics are calculated to help evaluate the performance of LFs:
 * **Incorrect**: Given the ground truth, the number of incorrectly labeled data points per LF
 * **Empirical Accuracy**: Given the ground truth, the overall accuracy of the LF
 
+### Combining LFs with Label Model
+Having several LFs can create conflicts when labeling data points. 
+Snorkel provides a labeling model (`LabelModel`) which can apply different 
+aggregation (i.e. majority voting) rules to create the final label.
+
+Majority voting is a simple aggregation logic but it will provide misleading 
+results if there is a lot of overlap and correlations between LFs. A better
+approach is to use a labeling model which will weigh LFs differently.
+
+Note that these models don't require the ground-truth and are simply using the
+output of the LFs. Because of this, these label models could be used as a classifier
+but will likely fail with new data if new features are required.
+A better approach is to train a more generalized classifier. 
+
+For examples on using label models, see the `tutorial-data-labeling.ipynb` and
+the *Combining Labeling Function Outputs with the Label Model* section.
 # General Thoughts
 
 #### Pros:  
