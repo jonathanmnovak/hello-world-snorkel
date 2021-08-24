@@ -122,6 +122,23 @@ A better approach is to train a more generalized classifier.
 
 For examples on using label models, see the `tutorial-data-labeling.ipynb` and
 the *Combining Labeling Function Outputs with the Label Model* section.
+
+### Train a Classifier
+We can now use the output of the label models to train a classifier. In the 
+tutorial, we'll build a simple logistic regression model using Scikit-Learn.
+
+The labeling models will produce a probability for the labels but
+Scikit-Learn requires a distinct value. You can use `probs_to_pred` helper method
+to convert this. Note that there isn't a threshold parameter to only classify
+probabilities above a certain threshold. Instead, you'll need to use the `tol` 
+parameter which is the minimum distance between probabilities and have the 
+`tie_break_policy` be "abstain". For example, if you only want to label
+probabilities above 0.8 for a binary classification problem, then `tol` will 
+be 0.6 (0.8 - 0.2).
+
+See the `tutorial-data-labeling.ipynb` and the *Training a Classifier* section
+to see the implementation.
+
 # General Thoughts
 
 #### Pros:  
