@@ -56,7 +56,7 @@ to label whether a comment is `SPAM` or not (aka `HAM`).
 repo.
 
 The main data labeling code for this tutorial is in the 
-`./tutorial/tutorial-data-labeling.ipynb` jupyter notebook.
+`./spam/tutorial-data-labeling.ipynb` jupyter notebook.
 
 ### Labeling Functions (LFs)
 
@@ -140,6 +140,17 @@ See the `tutorial-data-labeling.ipynb` and the *Training a Classifier* section
 to see the implementation.
 
 ## Data Augmentation
+
+I will be following the 
+[Snorkel Intro Tutorial: Data Augmentation](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial) 
+which uses the 
+[YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
+to label whether a comment is `SPAM` or not (aka `HAM`).
+
+The main data labeling code for this tutorial is in the 
+`./spam/tutorial-data-augmentation.ipynb` jupyter notebook.
+
+### Transformation Functions (TFs)
 
 # General Thoughts
 
