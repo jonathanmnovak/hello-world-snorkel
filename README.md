@@ -170,7 +170,7 @@ lambda mapper functions but you can only pass text as a parameter and no additio
 arguments (since there is no `resources` argument). This would be a nice future
 enhancement to make building similar TFs more efficient.
 
-## Applying TFs
+### Applying TFs
 
 Use a `Policy` to define the sequence of applying TFs to data points. This includes
 applying a random uniform policy (via `RandomPolicy`) or a given distribution 
@@ -178,6 +178,17 @@ applying a random uniform policy (via `RandomPolicy`) or a given distribution
 
 After the TFs are applied and augmented data is created, you can now build models
 with this expansive training set!
+
+## Data Slicing
+
+I will be following the 
+[Snorkel Intro Tutorial: Data Slicing](https://www.snorkel.org/use-cases/03-spam-data-slicing-tutorial) 
+which uses the 
+[YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
+to label whether a comment is `SPAM` or not (aka `HAM`).
+
+The main data labeling code for this tutorial is in the 
+`./spam/tutorial-data-slicing.ipynb` jupyter notebook.
 
 # General Thoughts
 
