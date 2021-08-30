@@ -56,7 +56,7 @@ to label whether a comment is `SPAM` or not (aka `HAM`).
 repo.
 
 The main data labeling code for this tutorial is in the 
-`./tutorial/tutorial-data-labeling.ipynb` jupyter notebook.
+`./spam/tutorial-data-labeling.ipynb` jupyter notebook.
 
 ### Labeling Functions (LFs)
 
@@ -139,6 +139,46 @@ be 0.6 (0.8 - 0.2).
 See the `tutorial-data-labeling.ipynb` and the *Training a Classifier* section
 to see the implementation.
 
+## Data Augmentation
+
+I will be following the 
+[Snorkel Intro Tutorial: Data Augmentation](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial) 
+which uses the 
+[YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
+to label whether a comment is `SPAM` or not (aka `HAM`).
+
+The main data labeling code for this tutorial is in the 
+`./spam/tutorial-data-augmentation.ipynb` jupyter notebook.
+
+### Transformation Functions (TFs)
+
+TFs are used to create additional data points with a class label. This is 
+helpful when the training data is limited and more data points are required 
+for a specific class or to capture more diverse and realistic data points which
+may not be present in the training data.
+
+For example, we can create additional text by taking text in the training data
+and replacing words with synonyms. 
+
+Like LFs, TFs also accept `Preprocessor` objects.
+
+The TFs for this tutorial can be found in the 
+`SpamTransformationFunctions.py`. Note that I did refactor the code for the POS
+synonym replacement TFs. It would be nice to quickly build similar TFs by following
+the same design as the keyword LFs but this isn't fully supported. You can implement
+lambda mapper functions but you can only pass text as a parameter and no additional
+arguments (since there is no `resources` argument). This would be a nice future
+enhancement to make building similar TFs more efficient.
+
+## Applying TFs
+
+Use a `Policy` to define the sequence of applying TFs to data points. This includes
+applying a random uniform policy (via `RandomPolicy`) or a given distribution 
+(via `MeanFieldPolicy`).
+
+After the TFs are applied and augmented data is created, you can now build models
+with this expansive training set!
+
 # General Thoughts
 
 #### Pros:  
@@ -148,3 +188,8 @@ to see the implementation.
 #### Overall:  
 
 # Additional Resources
+
+# TODOs
+[ ] Reload `requirements.txt`  
+[ ] Run linter check: `pycodestyle`  
+[ ] Run linter check: `pydocstyle`
