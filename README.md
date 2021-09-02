@@ -187,8 +187,23 @@ which uses the
 [YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
 to label whether a comment is `SPAM` or not (aka `HAM`).
 
-The main data labeling code for this tutorial is in the 
+The main data slicing code for this tutorial is in the 
 `./spam/tutorial-data-slicing.ipynb` jupyter notebook.
+
+### Slicing Functions (SFs)
+SFs output different slices of a data by applying binary masks to indicate
+whether a data point is part of a slice or not. This is useful to evaluate 
+specific segments of a data set that are more crucial to a problem (e.g. SPAM 
+that has links to malicious websites). 
+
+Similar to LFs and TFs, SFs also accepts `Preprocessor` objects.
+
+The SFs for this tutorial can be found in the 
+`SpamSlicingFunctions.py`
+
+### Slice Performance
+Using a trained model and the ground truth labels, you can evaluate the overall
+performance of the model and per slice using the `Scorer` class.
 
 # General Thoughts
 
