@@ -240,8 +240,3 @@ improving data labels and evaluating performance of different data segments. I a
 really like how it relates to the ethical AI field and I could see this package
  growing more in this area and helping make ethical AI techniques more available
  (e.g. adding fairness features)
-
-# Additional Resources
-
-# TODOs 
-[ ] Run linter check: `pydocstyle`
