@@ -170,7 +170,7 @@ lambda mapper functions but you can only pass text as a parameter and no additio
 arguments (since there is no `resources` argument). This would be a nice future
 enhancement to make building similar TFs more efficient.
 
-## Applying TFs
+### Applying TFs
 
 Use a `Policy` to define the sequence of applying TFs to data points. This includes
 applying a random uniform policy (via `RandomPolicy`) or a given distribution 
@@ -179,13 +179,67 @@ applying a random uniform policy (via `RandomPolicy`) or a given distribution
 After the TFs are applied and augmented data is created, you can now build models
 with this expansive training set!
 
+## Data Slicing
+
+I will be following the 
+[Snorkel Intro Tutorial: Data Slicing](https://www.snorkel.org/use-cases/03-spam-data-slicing-tutorial) 
+which uses the 
+[YouTube comments dataset](https://archive.ics.uci.edu/ml/datasets/YouTube+Spam+Collection) 
+to label whether a comment is `SPAM` or not (aka `HAM`).
+
+The main data slicing code for this tutorial is in the 
+`./spam/tutorial-data-slicing.ipynb` jupyter notebook.
+
+### Slicing Functions (SFs)
+SFs output different slices of a data by applying binary masks to indicate
+whether a data point is part of a slice or not. This is useful to evaluate 
+specific segments of a data set that are more crucial to a problem (e.g. SPAM 
+that has links to malicious websites). 
+
+Similar to LFs and TFs, SFs also accepts `Preprocessor` objects.
+
+The SFs for this tutorial can be found in the 
+`SpamSlicingFunctions.py`
+
+### Slice Performance
+Using a trained model and the ground truth labels, you can evaluate the overall
+performance of the model and per slice using the `Scorer` class.
+
+### Improving Slice Performance
+Through the `SliceAwareClassifier`, we can improve slice performance by turning
+slices into tasks and training a multitask model via a multi-layer perceptron
+(MLP) in Pytorch. 
+
+Another approach is to over/under sample certain slices but this might not be 
+feasible as the data and the number of slices scale.
+
+See the **Improving Slice Performance** in the Jupyter notebook on how to apply
+`SliceAwareClassifier`
+
 # General Thoughts
 
 #### Pros:  
+1. General wrapper of functionality that provides consistency and quick 
+evaluation of multiple LFs, TFs, and SFs.
+2. The SFs are useful from an ethical AI perspective because you can evaluate
+performance of different segments that might have complex rules. Also the ability
+to improve slice performance using a multitask neural network is beneficial. 
 
 #### Cons:  
+1. Automating the building of multiple, similar TFs isn't possible because it
+doesn't have the same structure as LFs and SFs. This would be a nice feature
+to build TFs quickly and keep consistency with LFs and SFs. 
+2. LFs and SFs seem very similar and it makes me wonder if different classes are
+actually required. However, I haven't given this enough thought or looked into 
+the code to see if this is possible so this may be more of a gut reaction and 
+through time and use the distinction will make more sense. 
 
 #### Overall:  
+Snorkel is a useful library that provides consistency and efficiency when 
+improving data labels and evaluating performance of different data segments. I also
+really like how it relates to the ethical AI field and I could see this package
+ growing more in this area and helping make ethical AI techniques more available
+ (e.g. adding fairness features)
 
 # Additional Resources
 
