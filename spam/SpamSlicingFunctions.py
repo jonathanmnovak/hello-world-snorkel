@@ -2,7 +2,6 @@ import re
 from snorkel.preprocess import preprocessor
 from snorkel.slicing import SlicingFunction, slicing_function
 from SpamPreprocessors import *
-from textblob import TextBlob
 
 @slicing_function()
 def short_comment(x:str, thresh:int=5) -> bool:
