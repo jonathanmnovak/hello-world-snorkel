@@ -217,6 +217,10 @@ performance of different segments that might have complex rules.
 1. Automating the building of multiple, similar TFs isn't possible because it
 doesn't have the same structure as LFs and SFs. This would be a nice feature
 to build TFs quickly and keep consistency with LFs and SFs. 
+2. LFs and SFs seem very similar and it makes me wonder if different classes are
+actually required. However, I haven't given this enough thought or looked into 
+the code to see if this is possible so this may be more of a gut reaction and 
+through time and use the distinction will make more sense. 
 
 #### Overall:  
 
