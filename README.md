@@ -243,6 +243,5 @@ really like how it relates to the ethical AI field and I could see this package
 
 # Additional Resources
 
-# TODOs
-[ ] Run linter check: `pycodestyle`  
+# TODOs 
 [ ] Run linter check: `pydocstyle`

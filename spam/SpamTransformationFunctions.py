@@ -1,3 +1,4 @@
+"""Transformation functions for Spam data."""
 import names
 import nltk
 from nltk.corpus import wordnet as wn
@@ -14,13 +15,12 @@ pos_dict = {'NOUN': 'n', 'VERB': 'v', 'ADJ': 'a'}
 
 
 def _get_synonym(word: str, pos: str = None) -> str:
-    """
-    Get synonym for word given its part-of-speech (pos).
+    """Get synonym for word given its part-of-speech (pos).
+
     :param word: Word to find a synonym for based on the pos
     :param pos: Part-of-speech
     :return: synonym
     """
-
     synsets = wn.synsets(word, pos=pos)
 
     if synsets:
@@ -30,27 +30,24 @@ def _get_synonym(word: str, pos: str = None) -> str:
 
 
 def _replace_token(spacy_doc, idx, replacement):
-    """
-    Replace token in position idx with replacement
+    """Replace token in position idx with replacement.
+
     :param spacy_doc: Spacy text
     :param idx: index of spacy_doc
     :param replacement: replacement text
     :return: Text with the word replaced
     """
-
     return " ".join(
         [spacy_doc[:idx].text, replacement, spacy_doc[1 + idx:].text])
 
 
 @transformation_function(pre=[spacy])
 def change_person(x: str) -> str:
-    """
-    Function that replaces the name in a text (if available) with a different,
-     randomly chosen name
+    """Replace the name in a text with a different, randomly chosen name.
+
     :param x: Text to evaluate
     :return: Text with a different name
     """
-
     person_names = [ent.text for ent in x.doc.ents if ent.label_ == "PERSON"]
 
     if person_names:
@@ -62,12 +59,11 @@ def change_person(x: str) -> str:
 
 @transformation_function(pre=[spacy])
 def swap_adjectives(x: str) -> str:
-    """
-    Swap two adjectives at random
+    """Swap two adjectives at random.
+
     :param x: Text to evaluate
     :return: Text with a different adjective
     """
-
     adjective_idxs = [i for i, token in enumerate(x.doc) if
                       token.pos_ == "ADJ"]
     # Check that there are at least two adjectives to swap
@@ -87,14 +83,12 @@ def swap_adjectives(x: str) -> str:
 
 
 def _replace_pos_with_synonym(x: str, pos: str) -> str:
-    """
-    Given a text and a part-of-speech, replace a word with that part-of-speech
-     with a random synonym
+    """Replace a word (given a part-of-speech) with a random synonym.
+
     :param x: Text to evaluate
     :param pos: part-of-speech
     :return: Text with  replaced with synonym
     """
-
     idxs = [i for i, token in enumerate(x.doc) if token.pos_ == pos]
 
     if idxs:
@@ -107,9 +101,9 @@ def _replace_pos_with_synonym(x: str, pos: str) -> str:
 
 @transformation_function(pre=[spacy])
 def replace_noun_with_synonym(x: str) -> str:
-    """
-    Randomly replace a noun in the text with a synonym
-    :param x: T
+    """Replace a noun in the text with a random synonym.
+
+    :param x: Text to evaluate
     :return: Text with synonym replacing a randomly chosen noun
     """
     return _replace_pos_with_synonym(x, pos="NOUN")
@@ -117,9 +111,9 @@ def replace_noun_with_synonym(x: str) -> str:
 
 @transformation_function(pre=[spacy])
 def replace_verb_with_synonym(x: str) -> str:
-    """
-    Randomly replace a verb in the text with a synonym
-    :param x: T
+    """Replace a verb in the text with a random synonym.
+
+    :param x: Text to evaluate
     :return: Text with synonym replacing a randomly chosen verb
     """
     return _replace_pos_with_synonym(x, pos="VERB")
@@ -127,9 +121,9 @@ def replace_verb_with_synonym(x: str) -> str:
 
 @transformation_function(pre=[spacy])
 def replace_adj_with_synonym(x: str) -> str:
-    """
-    Randomly replace a adjective in the text with a synonym
-    :param x: T
+    """Replace an adjective in the text with a random synonym.
+
+    :param x: Text to evaluate
     :return: Text with synonym replacing a randomly chosen adjective
     """
     return _replace_pos_with_synonym(x, pos="ADJ")
