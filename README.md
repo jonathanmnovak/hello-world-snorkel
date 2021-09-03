@@ -208,8 +208,15 @@ performance of the model and per slice using the `Scorer` class.
 # General Thoughts
 
 #### Pros:  
+1. General wrapper of functionality that provides consistency and quick 
+evaluation of multiple LFs, TFs, and SFs.
+2. The SFs are useful from an ethical AI perspective because you can evaluate
+performance of different segments that might have complex rules.
 
 #### Cons:  
+1. Automating the building of multiple, similar TFs isn't possible because it
+doesn't have the same structure as LFs and SFs. This would be a nice feature
+to build TFs quickly and keep consistency with LFs and SFs. 
 
 #### Overall:  
 
