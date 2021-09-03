@@ -3,8 +3,9 @@ from snorkel.preprocess import preprocessor
 from snorkel.slicing import SlicingFunction, slicing_function
 from SpamPreprocessors import *
 
+
 @slicing_function()
-def short_comment(x:str, thresh:int=5) -> bool:
+def short_comment(x: str, thresh: int = 5) -> bool:
     """
     Slicing function to identify Ham comments which are often short text
     :param x: Comment to evaluate
@@ -14,7 +15,8 @@ def short_comment(x:str, thresh:int=5) -> bool:
 
     return len(x.text.split()) < thresh
 
-def keyword_lookup(x:str, keywords:list) -> bool:
+
+def keyword_lookup(x: str, keywords: list) -> bool:
     """
     Keyword-based slicing functions
     :param x: Comment to evaluate
@@ -23,7 +25,8 @@ def keyword_lookup(x:str, keywords:list) -> bool:
     """
     return any(word in x.text.lower() for word in keywords)
 
-def make_keyword_sf(keywords:list) -> SlicingFunction:
+
+def make_keyword_sf(keywords: list) -> SlicingFunction:
     """
     Function to create slicing function given a set of keywords
     :param keywords: Keywords unique to this slicing function
@@ -35,12 +38,13 @@ def make_keyword_sf(keywords:list) -> SlicingFunction:
         resources=dict(keywords=keywords),
     )
 
+
 """Create please keyword slicing function"""
 keyword_please = make_keyword_sf(keywords=["please", "plz"])
 
 
 @slicing_function()
-def regex_check_out(x:str)->bool:
+def regex_check_out(x: str) -> bool:
     """
     Slicing function to check if the phrase 'check out' with words in between
     are in the comment
@@ -51,15 +55,16 @@ def regex_check_out(x:str)->bool:
 
 
 @slicing_function()
-def short_link(x:str)->bool:
+def short_link(x: str) -> bool:
     """Returns whether text matches common pattern for shortened ".ly" links.
     :param x: Comment to evaluate
     :return: Boolean if the regex of '.ly' is in the comment
     """
     return bool(re.search(r"\w+\.ly", x.text))
 
+
 @slicing_function(pre=[textblob_sentiment])
-def textblob_polarity(x:str, thresh:float=0.9) -> bool:
+def textblob_polarity(x: str, thresh: float = 0.9) -> bool:
     """
     Slciing
     :param x: Comment to evaluate

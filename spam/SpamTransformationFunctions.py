@@ -10,9 +10,10 @@ from snorkel.preprocess.nlp import SpacyPreprocessor
 spacy = SpacyPreprocessor(text_field='text', doc_field='doc', memoize=True)
 replacement_names = [names.get_full_name() for _ in range(50)]
 nltk.download("wordnet")
-pos_dict = {'NOUN':'n', 'VERB':'v', 'ADJ':'a'}
+pos_dict = {'NOUN': 'n', 'VERB': 'v', 'ADJ': 'a'}
 
-def _get_synonym(word:str, pos:str=None) -> str:
+
+def _get_synonym(word: str, pos: str = None) -> str:
     """
     Get synonym for word given its part-of-speech (pos).
     :param word: Word to find a synonym for based on the pos
@@ -27,6 +28,7 @@ def _get_synonym(word:str, pos:str=None) -> str:
         if words[0].lower() != word.lower():
             return words[0].replace("_", " ")
 
+
 def _replace_token(spacy_doc, idx, replacement):
     """
     Replace token in position idx with replacement
@@ -36,7 +38,9 @@ def _replace_token(spacy_doc, idx, replacement):
     :return: Text with the word replaced
     """
 
-    return " ".join([spacy_doc[:idx].text, replacement, spacy_doc[1+idx:].text])
+    return " ".join(
+        [spacy_doc[:idx].text, replacement, spacy_doc[1 + idx:].text])
+
 
 @transformation_function(pre=[spacy])
 def change_person(x: str) -> str:
@@ -55,6 +59,7 @@ def change_person(x: str) -> str:
         x.text = x.text.replace(name_to_replace, replacement_name)
         return x
 
+
 @transformation_function(pre=[spacy])
 def swap_adjectives(x: str) -> str:
     """
@@ -63,9 +68,10 @@ def swap_adjectives(x: str) -> str:
     :return: Text with a different adjective
     """
 
-    adjective_idxs = [i for i, token in enumerate(x.doc) if token.pos_ == "ADJ"]
+    adjective_idxs = [i for i, token in enumerate(x.doc) if
+                      token.pos_ == "ADJ"]
     # Check that there are at least two adjectives to swap
-    if len(adjective_idxs) >=2:
+    if len(adjective_idxs) >= 2:
         idx1, idx2 = sorted(np.random.choice(adjective_idxs, 2, replace=False))
 
         x.text = " ".join(
@@ -74,12 +80,13 @@ def swap_adjectives(x: str) -> str:
                 x.doc[idx2].text,
                 x.doc[1 + idx1:idx2].text,
                 x.doc[idx1].text,
-                x.doc[1+idx2:].text,
+                x.doc[1 + idx2:].text,
             ]
         )
         return x
 
-def _replace_pos_with_synonym(x:str, pos:str) -> str:
+
+def _replace_pos_with_synonym(x: str, pos: str) -> str:
     """
     Given a text and a part-of-speech, replace a word with that part-of-speech
      with a random synonym
@@ -97,8 +104,9 @@ def _replace_pos_with_synonym(x:str, pos:str) -> str:
             x.text = _replace_token(x.doc, idx, synonym)
             return x
 
+
 @transformation_function(pre=[spacy])
-def replace_noun_with_synonym(x:str) -> str:
+def replace_noun_with_synonym(x: str) -> str:
     """
     Randomly replace a noun in the text with a synonym
     :param x: T
@@ -106,8 +114,9 @@ def replace_noun_with_synonym(x:str) -> str:
     """
     return _replace_pos_with_synonym(x, pos="NOUN")
 
+
 @transformation_function(pre=[spacy])
-def replace_verb_with_synonym(x:str) -> str:
+def replace_verb_with_synonym(x: str) -> str:
     """
     Randomly replace a verb in the text with a synonym
     :param x: T
@@ -115,8 +124,9 @@ def replace_verb_with_synonym(x:str) -> str:
     """
     return _replace_pos_with_synonym(x, pos="VERB")
 
+
 @transformation_function(pre=[spacy])
-def replace_adj_with_synonym(x:str) -> str:
+def replace_adj_with_synonym(x: str) -> str:
     """
     Randomly replace a adjective in the text with a synonym
     :param x: T

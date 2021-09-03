@@ -1,8 +1,9 @@
 from snorkel.preprocess import preprocessor
 from textblob import TextBlob
 
+
 @preprocessor(memoize=True)
-def textblob_sentiment(x:str):
+def textblob_sentiment(x: str):
     """
     Uses the TextBlob package to apply a sentiment score to a given text.
     :param x: Text to evaluate
