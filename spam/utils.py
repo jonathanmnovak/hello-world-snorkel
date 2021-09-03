@@ -1,3 +1,4 @@
+"""Helper functions to evaluate spam data."""
 import glob
 import os
 import subprocess
@@ -13,11 +14,15 @@ from sklearn.model_selection import train_test_split
 from snorkel.classification.data import DictDataset, DictDataLoader
 
 
-def load_spam_dataset(load_train_labels: bool = False, split_dev_valid: bool = False):
+def load_spam_dataset(load_train_labels: bool = False,
+                      split_dev_valid: bool = False):
+    """Load spam dataset."""
     if os.path.basename(os.getcwd()) == "snorkel-tutorials":
         os.chdir("spam")
     try:
-        subprocess.run(["bash", "download_data.sh"], check=True, stderr=subprocess.PIPE)
+        subprocess.run(["bash", "download_data.sh"],
+                       check=True,
+                       stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
         print(e.stderr.decode())
         raise e
@@ -45,8 +50,11 @@ def load_spam_dataset(load_train_labels: bool = False, split_dev_valid: bool = F
         df_train["label"] = np.ones(len(df_train["label"])) * -1
     df_valid_test = dfs[4]
     df_valid, df_test = train_test_split(
-        df_valid_test, test_size=250, random_state=123, stratify=df_valid_test.label
-    )
+                                        df_valid_test,
+                                        test_size=250,
+                                        random_state=123,
+                                        stratify=df_valid_test.label
+                                        )
 
     if split_dev_valid:
         return df_train, df_dev, df_valid, df_test
@@ -55,6 +63,7 @@ def load_spam_dataset(load_train_labels: bool = False, split_dev_valid: bool = F
 
 
 def get_keras_logreg(input_dim, output_dim=2):
+    """Get Keras logreg."""
     model = tf.keras.Sequential()
     if output_dim == 1:
         loss = "binary_crossentropy"
@@ -75,6 +84,7 @@ def get_keras_logreg(input_dim, output_dim=2):
 
 
 def get_keras_lstm(num_buckets, embed_dim=16, rnn_state_size=64):
+    """Get Keras lstm."""
     lstm_model = tf.keras.Sequential()
     lstm_model.add(tf.keras.layers.Embedding(num_buckets, embed_dim))
     lstm_model.add(tf.keras.layers.LSTM(rnn_state_size, activation=tf.nn.relu))
@@ -84,10 +94,13 @@ def get_keras_lstm(num_buckets, embed_dim=16, rnn_state_size=64):
 
 
 def get_keras_early_stopping(patience=10, monitor="val_acc"):
-    """Stops training if monitor value doesn't exceed the current max value after patience num of epochs"""
+    """Stop training if monitor value doesn't exceed the current max value."""
     return tf.keras.callbacks.EarlyStopping(
-        monitor=monitor, patience=patience, verbose=1, restore_best_weights=True
-    )
+                                            monitor=monitor,
+                                            patience=patience,
+                                            verbose=1,
+                                            restore_best_weights=True
+                                            )
 
 
 def map_pad_or_truncate(string, max_length=30, num_buckets=30000):
@@ -99,15 +112,18 @@ def map_pad_or_truncate(string, max_length=30, num_buckets=30000):
 
 
 def featurize_df_tokens(df):
+    """Featurize tokens."""
     return np.array(list(map(map_pad_or_truncate, df.text)))
 
 
 def preview_tfs(df, tfs):
+    """Preview transformation functions."""
     transformed_examples = []
     for f in tfs:
         for i, row in df.sample(frac=1, random_state=2).iterrows():
             transformed_or_none = f(row)
-            # If TF returned a transformed example, record it in dict and move to next TF.
+            # If TF returned a transformed example, record it in dict and
+            # move to next TF.
             if transformed_or_none is not None:
                 transformed_examples.append(
                     OrderedDict(
@@ -123,7 +139,7 @@ def preview_tfs(df, tfs):
 
 
 def df_to_features(vectorizer, df, split):
-    """Convert pandas DataFrame containing spam data to bag-of-words PyTorch features."""
+    """Convert pandas DF to bag-of-words PyTorch features."""
     words = [row.text for i, row in df.iterrows()]
 
     if split == "train":
@@ -137,11 +153,14 @@ def df_to_features(vectorizer, df, split):
 
 def create_dict_dataloader(X, Y, split, **kwargs):
     """Create a DictDataLoader for bag-of-words features."""
-    ds = DictDataset.from_tensors(torch.FloatTensor(X), torch.LongTensor(Y), split)
+    ds = DictDataset.from_tensors(torch.FloatTensor(X),
+                                  torch.LongTensor(Y),
+                                  split)
     return DictDataLoader(ds, **kwargs)
 
 
 def get_pytorch_mlp(hidden_dim, num_layers):
+    """Get Pytorch MLP."""
     layers = []
     for _ in range(num_layers):
         layers.extend([nn.Linear(hidden_dim, hidden_dim), nn.ReLU()])
