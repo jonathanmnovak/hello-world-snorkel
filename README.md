@@ -205,13 +205,25 @@ The SFs for this tutorial can be found in the
 Using a trained model and the ground truth labels, you can evaluate the overall
 performance of the model and per slice using the `Scorer` class.
 
+### Improving Slice Performance
+Through the `SliceAwareClassifier`, we can improve slice performance by turning
+slices into tasks and training a multitask model via a multi-layer perceptron
+(MLP) in Pytorch. 
+
+Another approach is to over/under sample certain slices but this might not be 
+feasible as the data and the number of slices scale.
+
+See the **Improving Slice Performance** in the Jupyter notebook on how to apply
+`SliceAwareClassifier`
+
 # General Thoughts
 
 #### Pros:  
 1. General wrapper of functionality that provides consistency and quick 
 evaluation of multiple LFs, TFs, and SFs.
 2. The SFs are useful from an ethical AI perspective because you can evaluate
-performance of different segments that might have complex rules.
+performance of different segments that might have complex rules. Also the ability
+to improve slice performance using a multitask neural network is beneficial. 
 
 #### Cons:  
 1. Automating the building of multiple, similar TFs isn't possible because it
@@ -223,6 +235,11 @@ the code to see if this is possible so this may be more of a gut reaction and
 through time and use the distinction will make more sense. 
 
 #### Overall:  
+Snorkel is a useful library that provides consistency and efficiency when 
+improving data labels and evaluating performance of different data segments. I also
+really like how it relates to the ethical AI field and I could see this package
+ growing more in this area and helping make ethical AI techniques more available
+ (e.g. adding fairness features)
 
 # Additional Resources
 
